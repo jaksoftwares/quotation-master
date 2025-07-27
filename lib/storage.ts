@@ -128,6 +128,10 @@ const getDefaultTemplates = (): Template[] => {
       taxRate: 10,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      companyName: undefined,
+      companyAddress: undefined,
+      companyPhone: undefined,
+      companyEmail: undefined
     },
     {
       id: 'classic-template',
@@ -145,6 +149,10 @@ const getDefaultTemplates = (): Template[] => {
       taxRate: 10,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      companyName: undefined,
+      companyAddress: undefined,
+      companyPhone: undefined,
+      companyEmail: undefined
     },
     {
       id: 'minimal-template',
@@ -162,6 +170,10 @@ const getDefaultTemplates = (): Template[] => {
       taxRate: 10,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      companyName: undefined,
+      companyAddress: undefined,
+      companyPhone: undefined,
+      companyEmail: undefined
     },
     {
       id: 'corporate-template',
@@ -179,6 +191,10 @@ const getDefaultTemplates = (): Template[] => {
       taxRate: 10,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      companyName: undefined,
+      companyAddress: undefined,
+      companyPhone: undefined,
+      companyEmail: undefined
     },
     {
       id: 'creative-template',
@@ -196,6 +212,10 @@ const getDefaultTemplates = (): Template[] => {
       taxRate: 10,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      companyName: undefined,
+      companyAddress: undefined,
+      companyPhone: undefined,
+      companyEmail: undefined
     },
   ];
   
