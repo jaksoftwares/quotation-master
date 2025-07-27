@@ -83,6 +83,13 @@ export default function TemplatesPage() {
       taxRate: formData.taxRate || 0,
       createdAt: editingTemplate?.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      style: 'modern',
+      primaryColor: '',
+      secondaryColor: '',
+      fontFamily: '',
+      layout: 'standard',
+      showLogo: false,
+      headerStyle: 'simple'
     };
 
     saveTemplate(templateData);
