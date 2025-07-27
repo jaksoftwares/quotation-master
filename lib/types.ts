@@ -33,6 +33,10 @@ export interface QuotationItem {
 }
 
 export interface Template {
+  companyName: ReactNode;
+  companyAddress: ReactNode;
+  companyPhone: ReactNode;
+  companyEmail: ReactNode;
   id: string;
   name: string;
   description: string;

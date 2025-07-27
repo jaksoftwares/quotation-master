@@ -16,8 +16,8 @@ import {
   Calendar,
   DollarSign
 } from 'lucide-react';
-import { Quotation, Template } from '@/lib/types';
-import { getQuotation, getTemplate } from '@/lib/storage';
+import { Quotation, Template, BusinessProfile } from '@/lib/types';
+import { getQuotation, getTemplate, getBusinessProfile } from '@/lib/storage';
 import { generatePDF } from '@/lib/pdf';
 import { sendQuotationEmail } from '@/lib/email';
 import { useToast } from '@/hooks/use-toast';
@@ -36,6 +36,7 @@ export default function QuotationViewPage() {
   const { toast } = useToast();
   const [quotation, setQuotation] = useState<Quotation | null>(null);
   const [template, setTemplate] = useState<Template | null>(null);
+  const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -48,15 +49,17 @@ export default function QuotationViewPage() {
     }
 
     const loadedTemplate = getTemplate(loadedQuotation.templateId);
+    const loadedBusinessProfile = getBusinessProfile(loadedQuotation.businessProfileId);
     setQuotation(loadedQuotation);
     setTemplate(loadedTemplate);
+    setBusinessProfile(loadedBusinessProfile);
     setLoading(false);
   }, [params.id, router]);
 
   const handleDownloadPDF = () => {
-    if (!quotation || !template) return;
+    if (!quotation || !template || !businessProfile) return;
     
-    generatePDF(quotation, template);
+    generatePDF(quotation, template, businessProfile);
     toast({
       title: "PDF Generated",
       description: "Your quotation PDF is being generated.",
@@ -64,9 +67,9 @@ export default function QuotationViewPage() {
   };
 
   const handleSendEmail = () => {
-    if (!quotation || !template) return;
+    if (!quotation || !template || !businessProfile) return;
     
-    sendQuotationEmail(quotation, template);
+    sendQuotationEmail(quotation, template, businessProfile);
     toast({
       title: "Email Client Opened",
       description: "Your default email client has been opened with the quotation details.",
