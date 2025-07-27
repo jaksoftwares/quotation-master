@@ -23,12 +23,12 @@ export default function Navigation() {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:bg-gray-50 lg:border-r lg:border-gray-200">
+      <nav className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:bg-gray-50 lg:border-r lg:border-gray-200 ">
         <div className="flex items-center justify-between h-16 px-6 bg-blue-600">
           <h1 className="text-xl font-bold text-white">Dovepeak</h1>
           <UserMenu />
         </div>
-        <div className="flex-1 px-4 py-6 space-y-2">
+        <div className="flex-1 px-4 py-6 space-y-2 ">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
             return (
