@@ -22,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Quotation, Template } from '@/lib/types';
-import { deleteQuotation, saveQuotation } from '@/lib/storage';
+import { deleteQuotation, saveQuotation, getBusinessProfile } from '@/lib/storage';
 import { generatePDF } from '@/lib/pdf';
 import { sendQuotationEmail } from '@/lib/email';
 import { useToast } from '@/hooks/use-toast';
@@ -86,8 +86,16 @@ export default function QuotationCard({ quotation, template, onUpdate }: Quotati
       });
       return;
     }
-
-    generatePDF(quotation, template);
+    const businessProfile = getBusinessProfile(quotation.businessProfileId);
+    if (!businessProfile) {
+      toast({
+        title: "Error",
+        description: "Business profile not found",
+        variant: "destructive",
+      });
+      return;
+    }
+    generatePDF(quotation, template, businessProfile);
     toast({
       title: "PDF Generated",
       description: "Your quotation PDF is being generated.",
@@ -103,16 +111,22 @@ export default function QuotationCard({ quotation, template, onUpdate }: Quotati
       });
       return;
     }
-
-    sendQuotationEmail(quotation, template);
-    
+    const businessProfile = getBusinessProfile(quotation.businessProfileId);
+    if (!businessProfile) {
+      toast({
+        title: "Error",
+        description: "Business profile not found",
+        variant: "destructive",
+      });
+      return;
+    }
+    sendQuotationEmail(quotation, template, businessProfile);
     // Update status to sent if it was draft
     if (quotation.status === 'draft') {
       const updatedQuotation = { ...quotation, status: 'sent' as const };
       saveQuotation(updatedQuotation);
       onUpdate();
     }
-    
     toast({
       title: "Email Client Opened",
       description: "Your default email client has been opened with the quotation details.",
