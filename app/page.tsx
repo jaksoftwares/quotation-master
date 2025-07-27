@@ -20,15 +20,18 @@ import { getQuotations } from '@/lib/storage';
 import { formatCurrency } from '@/lib/currencies';
 
 export default function Dashboard() {
-  const [stats, setStats] = useState<DashboardStats>({
-    total: 0,
-    draft: 0,
-    sent: 0,
-    accepted: 0,
-    rejected: 0,
-    totalValue: 0,
-    monthlyValue: 0,
-  });
+const [stats, setStats] = useState<DashboardStats>({
+  total: 0,
+  draft: 0,
+  sent: 0,
+  accepted: 0,
+  rejected: 0,
+  totalValue: 0,
+  monthlyValue: 0,
+  averageValue: 0,
+  conversionRate: 0,
+});
+
   const [recentQuotations, setRecentQuotations] = useState<Quotation[]>([]);
 
   useEffect(() => {
@@ -37,20 +40,28 @@ export default function Dashboard() {
     const currentYear = new Date().getFullYear();
 
     // Calculate stats
-    const newStats: DashboardStats = {
-      total: quotations.length,
-      draft: quotations.filter(q => q.status === 'draft').length,
-      sent: quotations.filter(q => q.status === 'sent').length,
-      accepted: quotations.filter(q => q.status === 'accepted').length,
-      rejected: quotations.filter(q => q.status === 'rejected').length,
-      totalValue: quotations.reduce((sum, q) => sum + q.total, 0),
-      monthlyValue: quotations
-        .filter(q => {
-          const date = new Date(q.createdAt);
-          return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
-        })
-        .reduce((sum, q) => sum + q.total, 0),
-    };
+ const newStats: DashboardStats = {
+  total: quotations.length,
+  draft: quotations.filter(q => q.status === 'draft').length,
+  sent: quotations.filter(q => q.status === 'sent').length,
+  accepted: quotations.filter(q => q.status === 'accepted').length,
+  rejected: quotations.filter(q => q.status === 'rejected').length,
+  totalValue: quotations.reduce((sum, q) => sum + q.total, 0),
+  monthlyValue: quotations
+    .filter(q => {
+      const date = new Date(q.createdAt);
+      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    })
+    .reduce((sum, q) => sum + q.total, 0),
+  averageValue:
+    quotations.length > 0
+      ? quotations.reduce((sum, q) => sum + q.total, 0) / quotations.length
+      : 0,
+  conversionRate:
+    quotations.length > 0
+      ? (quotations.filter(q => q.status === 'accepted').length / quotations.length) * 100
+      : 0,
+};
 
     setStats(newStats);
     
@@ -222,7 +233,7 @@ export default function Dashboard() {
                     </div>
                     <div className="text-right">
                       <div className="text-sm font-medium">{formatAmount(quotation.total, quotation.currency)}</div>
-                      <Badge className={statusColors[quotation.status]} size="sm">
+                  <Badge className={statusColors[quotation.status]}>
                         {quotation.status}
                       </Badge>
                     </div>
