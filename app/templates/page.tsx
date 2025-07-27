@@ -141,7 +141,7 @@ export default function TemplatesPage() {
                   <Label htmlFor="name">Template Name *</Label>
                   <Input
                     id="name"
-                    value={formData.name || ''}
+                    value={String(formData.name ?? '')}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Professional Template"
                   />
@@ -150,7 +150,7 @@ export default function TemplatesPage() {
                   <Label htmlFor="description">Description</Label>
                   <Input
                     id="description"
-                    value={formData.description || ''}
+                    value={String(formData.description ?? '')}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Clean and professional template"
                   />
@@ -164,7 +164,7 @@ export default function TemplatesPage() {
                     <Label htmlFor="companyName">Company Name *</Label>
                     <Input
                       id="companyName"
-                      value={formData.companyName || ''}
+                      value={String(formData.companyName ?? '')}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                       placeholder="Your Company Name"
                     />
@@ -174,7 +174,7 @@ export default function TemplatesPage() {
                     <Input
                       id="companyEmail"
                       type="email"
-                      value={formData.companyEmail || ''}
+                      value={String(formData.companyEmail ?? '')}
                       onChange={(e) => setFormData({ ...formData, companyEmail: e.target.value })}
                       placeholder="contact@yourcompany.com"
                     />
@@ -183,7 +183,7 @@ export default function TemplatesPage() {
                     <Label htmlFor="companyPhone">Company Phone</Label>
                     <Input
                       id="companyPhone"
-                      value={formData.companyPhone || ''}
+                      value={String(formData.companyPhone ?? '')}
                       onChange={(e) => setFormData({ ...formData, companyPhone: e.target.value })}
                       placeholder="+1 (555) 123-4567"
                     />
@@ -193,7 +193,7 @@ export default function TemplatesPage() {
                     <Input
                       id="taxRate"
                       type="number"
-                      value={formData.taxRate || 0}
+                      value={formData.taxRate ?? 0}
                       onChange={(e) => setFormData({ ...formData, taxRate: Number(e.target.value) })}
                       min="0"
                       max="100"
@@ -205,7 +205,7 @@ export default function TemplatesPage() {
                   <Label htmlFor="companyAddress">Company Address</Label>
                   <Textarea
                     id="companyAddress"
-                    value={formData.companyAddress || ''}
+                    value={String(formData.companyAddress ?? '')}
                     onChange={(e) => setFormData({ ...formData, companyAddress: e.target.value })}
                     placeholder="123 Business Street, City, State 12345"
                     rows={3}
@@ -219,7 +219,7 @@ export default function TemplatesPage() {
                   <Label htmlFor="defaultNotes">Default Notes</Label>
                   <Textarea
                     id="defaultNotes"
-                    value={formData.defaultNotes || ''}
+                    value={String(formData.defaultNotes ?? '')}
                     onChange={(e) => setFormData({ ...formData, defaultNotes: e.target.value })}
                     placeholder="Thank you for considering our services..."
                     rows={3}
@@ -229,7 +229,7 @@ export default function TemplatesPage() {
                   <Label htmlFor="defaultTerms">Default Terms & Conditions</Label>
                   <Textarea
                     id="defaultTerms"
-                    value={formData.defaultTerms || ''}
+                    value={String(formData.defaultTerms ?? '')}
                     onChange={(e) => setFormData({ ...formData, defaultTerms: e.target.value })}
                     placeholder="Payment is due within 30 days..."
                     rows={4}
