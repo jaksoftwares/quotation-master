@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -27,9 +27,18 @@ import {
 } from '@/components/ui/alert-dialog';
 
 export default function SettingsPage() {
+
+  const [lastBackup, setLastBackup] = useState<string | null>(null);
+
   const { toast } = useToast();
   const [isImporting, setIsImporting] = useState(false);
 
+
+      useEffect(() => {
+      if (typeof window !== 'undefined') {
+        setLastBackup(localStorage.getItem('dovepeak_last_backup'));
+      }
+    }, []);
   const handleExportData = () => {
     try {
       const data = exportData();
@@ -123,6 +132,10 @@ export default function SettingsPage() {
 
   const quotationsCount = getQuotations().length;
   const templatesCount = getTemplates().length;
+
+  
+
+  
 
   return (
     <div className="space-y-6">
@@ -276,8 +289,9 @@ export default function SettingsPage() {
             <div className="flex justify-between">
               <span className="text-gray-600">Last Backup:</span>
               <span className="font-medium">
-                {localStorage.getItem('dovepeak_last_backup') || 'Never'}
+                {lastBackup || 'Never'}
               </span>
+
             </div>
           </div>
         </CardContent>
