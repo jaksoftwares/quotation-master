@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Quotation {
   id: string;
   quotationNumber: string;
